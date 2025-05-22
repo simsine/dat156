@@ -4,7 +4,5 @@ description = ""
 template = "archive.html"
 transparent = true
 render = false
-
-[extra]
-date_format = "%m-%d"
+extra.date_format = "%m-%d"
 +++
