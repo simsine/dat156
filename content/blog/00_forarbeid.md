@@ -10,6 +10,6 @@ I denne bloggen kommer jeg til å dokumentere arbeidet mitt dag for dag mens jeg
 
 ## Oppsett av bloggen
 Denne bloggen er bygget med [Zola](https://getzola.org/) som er et program som genererer statiske nettsider ut ifra markdown filer. 
-Man kan definere oppsettet av siden selv eller bruke et ferdiglaget som [Linkita](https://www.getzola.org/themes/linkita/) blogg-temaet som er brukt for denne siden. 
+Man kan definere oppsettet av siden selv eller bruke et ferdiglaget tema som [Linkita blogg-temaet](https://www.getzola.org/themes/linkita/) som er brukt for å lage denne siden.
 
 Siden er produksjonsatt med Github Actions på Github Pages som er en enkel måte å servere statiske nettsider og integreres direkte i repoet på Github.
