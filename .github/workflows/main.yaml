@@ -1,0 +1,11 @@
+---
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    steps:
+      - name: 'checkout'
+        uses: actions/checkout@v4
+      - name: 'build'
+        uses: shalzz/zola-deploy-action@master
