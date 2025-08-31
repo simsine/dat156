@@ -49,6 +49,10 @@ highlight_code = true
 # Default value: false
 disable_default_favicon = true
 
+# Reverse the order of prev and next post links.
+# Default value: false
+invert_page_navigation = true
+
 # Put all your custom variables here
 header_menu_name = "header_menu"
 
