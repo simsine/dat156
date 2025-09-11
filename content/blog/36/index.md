@@ -1,6 +1,6 @@
 +++
-title = "Uke 35"
-date = 2025-08-31
+title = "Uke 36"
+date = 2025-09-07
 author = "simsine"
 +++
 
