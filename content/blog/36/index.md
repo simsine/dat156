@@ -4,11 +4,11 @@ date = 2025-09-07
 author = "simsine"
 +++
 
-> Timer denne uka: x
+> Timer denne uka: 15,5
 > 
-> Timer totalt: x
+> Timer totalt: 43,5
 
-# Onsdag - 
+# Onsdag - 7 timer 09:00-16:00
 
 ## Error handling i Axum
 I dag startet jeg å implementere feilhåndtering i Axum applikasjonen, ettersom dette ikke var implementert ennå manglet siden en egen error respons side og returnerte bare en generisk browser error. Heldigvis oppgir Axum flere kode-eksempler på blant annet error handling i [GitHub repoet deres](https://github.com/tokio-rs/axum/tree/main/examples). Her vises det blant annet hvordan man kan gjøre om route handler funksjoner til å returnere en Result type. Det oppgir også hvordan man kan lage error typer man oppgir i Result typen som så kan implementere en metode for å konvertere error typen til en Response med en http respons kode og en respons body.
@@ -26,7 +26,6 @@ fn error_prone_function(should_bail: bool) -> Result<(), anyhow::Error> {
        Ok(())
    }
 }
-
 
 async fn error_prone_handler(
    Query(params): Query<ErrorParams>,
