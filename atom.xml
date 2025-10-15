@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="no">
+    <title>DAT156</title>
+    <link rel="self" type="application/atom+xml" href="https://simsine.no/dat156/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://simsine.no/dat156"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-09-14T00:00:00+00:00</updated>
+    <id>https://simsine.no/dat156/atom.xml</id>
+    <entry xml:lang="no">
+        <title>Uke 37</title>
+        <published>2025-09-14T00:00:00+00:00</published>
+        <updated>2025-09-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              simsine
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://simsine.no/dat156/blog/37/"/>
+        <id>https://simsine.no/dat156/blog/37/</id>
+        
+        <content type="html" xml:base="https://simsine.no/dat156/blog/37/">&lt;blockquote&gt;
+&lt;p&gt;Timer denne uka: 12,5&lt;&#x2F;p&gt;
+&lt;p&gt;Timer totalt: 56&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h1 id=&quot;onsdag-7-timer-09-00-16-00&quot;&gt;Onsdag - 7 timer - 09:00-16:00&lt;&#x2F;h1&gt;
+&lt;h1 id=&quot;type-sikre-svg-ikoner-i-rust&quot;&gt;Type-sikre SVG ikoner i Rust&lt;&#x2F;h1&gt;
+&lt;p&gt;Jeg startet dagen med å lage CSS for kategori knappene, dette var ganske straight-forward å implementere ut ifra design dokumentet i Figma. Etter å ha ordnet opp i det begynner jeg å se på hvordan jeg kan løse problemet med å kunne sette fargen på SVG ikoner i CSS. Ender også opp med å diskutere med en kollega hvordan dette kan løses og hvordan selve kategoriene skal defineres i koden. Vi ender opp med å ha en veldig informativ samtale og jeg får en del ideer for hvordan jeg kan implementere det.&lt;&#x2F;p&gt;
+&lt;p&gt;Ettersom SVG-er som er importert i HTML gjennom en img tag har begrenset mulighet til å bli endret av CSS-styles ser jeg på andre gode alternativer. Jeg kommer frem til at dette kan løses med å inkludere SVG koden direkte i markup, dette kan gjøres i maud makroen ved å inkludere innholdet direkte i markup. Jeg får derfor ideen av å lage en egen Enum type for SVG ikonene som importerer innholdet av filene direkte. Dette gjør at koden er lett å utvide når man skal legge til nye ikoner.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub enum &lt;&#x2F;span&gt;&lt;span&gt;SVG {
+&lt;&#x2F;span&gt;&lt;span&gt;   BurgerMenu,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span&gt;hypertext::Renderable &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;SVG {
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;render_to&lt;&#x2F;span&gt;&lt;span&gt;(&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;buffer&lt;&#x2F;span&gt;&lt;span&gt;: &amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span&gt; String) {
+&lt;&#x2F;span&gt;&lt;span&gt;       buffer.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;push_str&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;match &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;           &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;SVG&lt;&#x2F;span&gt;&lt;span&gt;::BurgerMenu =&amp;gt; include_str!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;..&#x2F;static&#x2F;svg&#x2F;burger.svg&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;),
+&lt;&#x2F;span&gt;&lt;span&gt;       })
+&lt;&#x2F;span&gt;&lt;span&gt;   }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Man kan så enkelt inkludere ikonene i maud makroen for å rendres til html.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span&gt;async &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;svg&lt;&#x2F;span&gt;&lt;span&gt;() -&amp;gt; Response {
+&lt;&#x2F;span&gt;&lt;span&gt;   maud!(
+&lt;&#x2F;span&gt;&lt;span&gt;       html {
+&lt;&#x2F;span&gt;&lt;span&gt;           link rel=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;stylesheet&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; href=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;static&#x2F;svg&#x2F;svg.css&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span&gt;       }
+&lt;&#x2F;span&gt;&lt;span&gt;       h1 {&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Type safe SVG icons!&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;}
+&lt;&#x2F;span&gt;&lt;span&gt;       (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;SVG&lt;&#x2F;span&gt;&lt;span&gt;::BurgerMenu)
+&lt;&#x2F;span&gt;&lt;span&gt;   ).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;render&lt;&#x2F;span&gt;&lt;span&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into_response&lt;&#x2F;span&gt;&lt;span&gt;()
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Legger man så til css regler for SVG&#x27;en og setter &lt;code&gt;stroke=&quot;currentColor&quot;&lt;&#x2F;code&gt; i SVG filene kan man endre fargen på de i koden.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;css&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-css &quot;&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;svg &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;   color: red;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;simsine.no&#x2F;dat156&#x2F;blog&#x2F;37&#x2F;svg_icons.png&quot; alt=&quot;Svg ikon eksempel&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;torsdag-5-5-timer-10-30-16-00&quot;&gt;Torsdag - 5.5 timer - 10:30-16:00&lt;&#x2F;h1&gt;
+&lt;p&gt;I dag startet jeg dagen med å være med på et avdelingsmøte som blir kalt “Fot i bakken” hvor man får mulighet til å fortelle hva man selv jobber med for tiden og høre på hva de andre jobber med. Jeg fikk introdusert meg selv for de andre og nevnt litt om at jeg jobbet sammen med Team Infra og at jeg kodet på en ny applikasjon for oversikt over systemene som driftes av Frende. Resten av møtet satt jeg og hørte på andre jobbet på av små og store prosjekter, men jeg må innrømme at det var litt vanskelig å følge med på ettersom jeg ikke er blitt så kjent med de andre utviklingsprosjektene og fordi det var en stor mengde forkortelser og uttrykk jeg ikke var kjent med betydningen av.&lt;&#x2F;p&gt;
+&lt;p&gt;Så etter det møtet startet jeg på utviklingen av en feature for å kunne filtrere systemer på ferdigsatte kategorier i applikasjonen. Her ble det litt frem og tilbake med hvordan det var best å implementere dette ettersom kategoriene helst burde være av en Enum type for å være gjenbrukbare, men også at kategoriene må ha en viss fastsatt rekkefølge. Jeg kom til slutt frem til at det var best å bruke Enums sammen med strum craten som blant annet inneholder makroer for å iterere over Enums.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="no">
+        <title>Uke 36</title>
+        <published>2025-09-07T00:00:00+00:00</published>
+        <updated>2025-09-07T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              simsine
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://simsine.no/dat156/blog/36/"/>
+        <id>https://simsine.no/dat156/blog/36/</id>
+        
+        <content type="html" xml:base="https://simsine.no/dat156/blog/36/">&lt;blockquote&gt;
+&lt;p&gt;Timer denne uka: 15,5&lt;&#x2F;p&gt;
+&lt;p&gt;Timer totalt: 43,5&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h1 id=&quot;onsdag-7-timer-09-00-16-00&quot;&gt;Onsdag - 7 timer 09:00-16:00&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;error-handling-i-axum&quot;&gt;Error handling i Axum&lt;&#x2F;h2&gt;
+&lt;p&gt;I dag startet jeg å implementere feilhåndtering i Axum applikasjonen, ettersom dette ikke var implementert ennå manglet siden en egen error respons side og returnerte bare en generisk browser error. Heldigvis oppgir Axum flere kode-eksempler på blant annet error handling i &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tokio-rs&#x2F;axum&#x2F;tree&#x2F;main&#x2F;examples&quot;&gt;GitHub repoet deres&lt;&#x2F;a&gt;. Her vises det blant annet hvordan man kan gjøre om route handler funksjoner til å returnere en Result type. Det oppgir også hvordan man kan lage error typer man oppgir i Result typen som så kan implementere en metode for å konvertere error typen til en Response med en http respons kode og en respons body.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Deserialize, Debug)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;struct &lt;&#x2F;span&gt;&lt;span&gt;ErrorParams {
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;should_bail&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;error_prone_function&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;should_bail&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt; Result&amp;lt;(), anyhow::Error&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt; should_bail {
+&lt;&#x2F;span&gt;&lt;span&gt;       anyhow::bail!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Something has gone wrong :(&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;)
+&lt;&#x2F;span&gt;&lt;span&gt;   } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;       Ok(())
+&lt;&#x2F;span&gt;&lt;span&gt;   }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;async &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;error_prone_handler&lt;&#x2F;span&gt;&lt;span&gt;(
+&lt;&#x2F;span&gt;&lt;span&gt;   Query(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;params&lt;&#x2F;span&gt;&lt;span&gt;): Query&amp;lt;ErrorParams&amp;gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt; Result&amp;lt;Response, AppError&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;error_prone_function&lt;&#x2F;span&gt;&lt;span&gt;(params.should_bail)?;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   Ok(maud!(
+&lt;&#x2F;span&gt;&lt;span&gt;       h1 {&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Everything is a-ok!&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;}
+&lt;&#x2F;span&gt;&lt;span&gt;   ).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;render&lt;&#x2F;span&gt;&lt;span&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into_response&lt;&#x2F;span&gt;&lt;span&gt;())
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub struct &lt;&#x2F;span&gt;&lt;span&gt;AppError(anyhow::Error);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;impl&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;E&amp;gt; From&amp;lt;E&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;AppError
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;where
+&lt;&#x2F;span&gt;&lt;span&gt;   E: Into&amp;lt;anyhow::Error&amp;gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;from&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;err&lt;&#x2F;span&gt;&lt;span&gt;: E) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;Self &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;       &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;Self&lt;&#x2F;span&gt;&lt;span&gt;(err.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into&lt;&#x2F;span&gt;&lt;span&gt;())
+&lt;&#x2F;span&gt;&lt;span&gt;   }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span&gt;IntoResponse &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;AppError {
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;into_response&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt; Response {
+&lt;&#x2F;span&gt;&lt;span&gt;       (StatusCode::&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;INTERNAL_SERVER_ERROR&lt;&#x2F;span&gt;&lt;span&gt;, maud!{
+&lt;&#x2F;span&gt;&lt;span&gt;           h1 {(StatusCode::&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;NOT_FOUND&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;as_u16&lt;&#x2F;span&gt;&lt;span&gt;())}
+&lt;&#x2F;span&gt;&lt;span&gt;           p {(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span&gt;())}
+&lt;&#x2F;span&gt;&lt;span&gt;       }.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;render&lt;&#x2F;span&gt;&lt;span&gt;()).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into_response&lt;&#x2F;span&gt;&lt;span&gt;()
+&lt;&#x2F;span&gt;&lt;span&gt;   }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Her introduserer vi også en ganske fin syntaks som tillater oss å kalle funksjoner på måten error_prone_function()?. Dette betyr at funksjonen returnerer et resultat som gjøres om til et Result som returneres av handleren. Her fungerer ? operatoren som en early return.&lt;&#x2F;p&gt;
+&lt;p&gt;Jeg la også til en fallback handler for routeren.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub&lt;&#x2F;span&gt;&lt;span&gt; async &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;error_404&lt;&#x2F;span&gt;&lt;span&gt;() -&amp;gt; impl IntoResponse {
+&lt;&#x2F;span&gt;&lt;span&gt;   (StatusCode::&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;NOT_FOUND&lt;&#x2F;span&gt;&lt;span&gt;, maud!(
+&lt;&#x2F;span&gt;&lt;span&gt;       h1 {&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;404&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;}
+&lt;&#x2F;span&gt;&lt;span&gt;       p {&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Page not found&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;}
+&lt;&#x2F;span&gt;&lt;span&gt;   ).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;render&lt;&#x2F;span&gt;&lt;span&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into_response&lt;&#x2F;span&gt;&lt;span&gt;())
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; app = Router::new()
+&lt;&#x2F;span&gt;&lt;span&gt;    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;route&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;maybe_error&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;get&lt;&#x2F;span&gt;&lt;span&gt;(error_prone_handler))
+&lt;&#x2F;span&gt;&lt;span&gt;    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;fallback&lt;&#x2F;span&gt;&lt;span&gt;(error_404);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;torsdag-5-5-timer-10-30-16-00&quot;&gt;Torsdag - 5,5 timer - 10:30-16:00&lt;&#x2F;h1&gt;
+&lt;p&gt;I dag knotet jeg en del med CSS styling. Noe av grunnen til det var at jeg skulle prøve å endre farge på SVG ikonene på siden basert på kontekst. Dette gikk ikke helt som forventet og det gikk en del tid til googling for å prøve å finne en løsning. Måten vi importerer SVG’ene på er å bruke en &lt;em&gt;img&lt;&#x2F;em&gt; tag som så refererer til en SVG fil, noe som viser seg å føre til noen begrensninger for å manipulere det med css. Jeg har imidlertid en mulig løsning på dette, men det må jeg komme tilbake til senere. Mot slutten av dagen blir jeg invitert med på en såkalt Back to work middag med de andre ansatte. Vi drar på restauranten SJØ Restaurant og Vinbar og blir servert en 3-retters middag og vin til drikke. Det skal nevnes at biffen deres er veldig god.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;fredag-3-timer-12-00-15-00&quot;&gt;Fredag - 3 timer - 12:00-15:00&lt;&#x2F;h1&gt;
+&lt;p&gt;Fikk problemer med bluetooth på laptopen, så det tok en drøy time å fikse. Etter jeg fikk fiksa bluetooth og kunne bruke keyboardet igjen begynte jeg å se på integrering av Bacon-LS i VSCode. Dagen var generelt preget av gårsdagens affære og at folk var klare for helgen og andre startet på en sen sommerferie.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="no">
+        <title>Uke 35</title>
+        <published>2025-08-31T00:00:00+00:00</published>
+        <updated>2025-08-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              simsine
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://simsine.no/dat156/blog/35/"/>
+        <id>https://simsine.no/dat156/blog/35/</id>
+        
+        <content type="html" xml:base="https://simsine.no/dat156/blog/35/">&lt;blockquote&gt;
+&lt;p&gt;Timer denne uka: 11&lt;&#x2F;p&gt;
+&lt;p&gt;Timer totalt: 28&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h1 id=&quot;onsdag-7-timer-09-00-1600&quot;&gt;Onsdag - 7 timer - 09:00-1600&lt;&#x2F;h1&gt;
+&lt;p&gt;Denne dagen går en del tid til å prøve å finne ut av hvordan implementere filtrering på flere tagger i en MVC struktur, ettersom applikasjonen ikke bruker noen form for frontend i form av JavaScript eller noen andre biblioteker. Jeg fikk omsider kontakt med han som hadde startet prosjektet ettersom han var tilbake fra ferie. Han kom med råd om hvordan det kunne implementeres med å bruke en individuell html-form for hver knapp.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;fredag-4-timer-10-30-14-30&quot;&gt;Fredag - 4 timer - 10:30-14:30&lt;&#x2F;h1&gt;
+&lt;p&gt;I dag fikk jeg fullført et utkast til implementasjonen av filtrering.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;hackathon&quot;&gt;Hackathon&lt;&#x2F;h2&gt;
+&lt;p&gt;På torsdagen og fredagen denne uka ble det arrangert et internt Hackathon på avdelingen hvor man fikk prøve seg på nye prosjekter og testet ny teknologi i grupper. Ettersom dette ikke passet så bra med når jeg var tilstede på jobb fikk jeg dessverre ikke deltatt i noe prosjekt, men utover dagen ble det klart for presentasjoner av hvert gruppeprosjekt. Her var det blant annet prosjekter som gikk ut på strategiutvikling for en bedrift, det deklarative pakke- og systemkonfigurasjonsverktøyet Nix, et system for oversikt over kunder som når Frende.no via bruk av OpenAI sin ChatGPT tjeneste og flere andre prosjekter. Etter presentasjonene var det åpent for servering av mat og drikke og det ble en god sjanse for å bli bedre kjent med kollegaer.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="no">
+        <title>Uke 34</title>
+        <published>2025-08-24T00:00:00+00:00</published>
+        <updated>2025-08-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              simsine
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://simsine.no/dat156/blog/34/"/>
+        <id>https://simsine.no/dat156/blog/34/</id>
+        
+        <content type="html" xml:base="https://simsine.no/dat156/blog/34/">&lt;blockquote&gt;
+&lt;p&gt;Timer  denne uka: 17&lt;&#x2F;p&gt;
+&lt;p&gt;Timer totalt: 17&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h1 id=&quot;onsdag-7-5-timer-09-00-16-30&quot;&gt;Onsdag - 7.5 timer - 09:00-16:30&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;start-pa-dagen-og-intro&quot;&gt;Start på dagen og intro&lt;&#x2F;h2&gt;
+&lt;p&gt;Startet dagen kl 09:00 og ble tildelt eget nøkkelkort for tilganger i bygget. Jeg fikk så introdusert meg selv til noen av de jeg skal jobbe med. Da jeg startet var det allerede satt opp jobb-laptop med Ubuntu installert, noe som var veldig greit ettersom jeg foretrekker å kjøre linux på mine egne maskiner for utvikling og serverdrift til vanlig. Etter det installerte jeg system-pakker og programmer på maskinen.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cargo - Package manager for programmeringsspråket Rust&lt;&#x2F;li&gt;
+&lt;li&gt;git&lt;&#x2F;li&gt;
+&lt;li&gt;VSCode&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Jeg fikk så opprettet brukerkontoer og to-trinns autentisering på de ulike tjenestene jeg skal bruke for kommunikasjon og samarbeid.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Epost&lt;&#x2F;li&gt;
+&lt;li&gt;Github Enterprise&lt;&#x2F;li&gt;
+&lt;li&gt;Slack&lt;&#x2F;li&gt;
+&lt;li&gt;TeamCity&lt;&#x2F;li&gt;
+&lt;li&gt;Figma&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;lunsj-og-systemknuten-prosjektet&quot;&gt;Lunsj og Systemknuten prosjektet&lt;&#x2F;h2&gt;
+&lt;p&gt;Kl 11.00 er det lunsj i kantina på avdelingen og mulighet for å snakke med flere på teamet.
+Etterpå får jeg mer info om prosjektet Systemknuten som er en side for å gi overblikk over de ulike eksterne og interne tjenestene i Frende. Dette kan være brukerrettede applikasjoner, APIer eller databaser. Behovet for dette prosjektet kommer av krav om at bedriften skal ha en oversikt over den store mengden tjenester de drifter.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;slutt-pa-dagen-og-mote&quot;&gt;Slutt på dagen og møte&lt;&#x2F;h2&gt;
+&lt;p&gt;Mot slutten av dagen ble jeg invitert med på møte om design av Systemknuten applikasjonen. På møtet diskuteres design dokumentet og videre valg av design.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;det-tekniske&quot;&gt;Det tekniske&lt;&#x2F;h2&gt;
+&lt;p&gt;Applikasjonen er skrevet i Rust og bruker web-rammeverket Axum.
+Hele siden er generert på server-siden og bruker ingen Javascript på frontenden.
+Rust er et ganske spennende programmeringsspråk som i tillegg til å ha en litt uvant syntaks også tvinger deg til å tenke på en ganske annerledes måte enn med for eksempel Java. I tillegg til å være ‘strongly typed’ må man også ta hensyn til levetiden og eierskapet av variabler. Dette er fordi i forhold til Java som bruker en garbage collector for å allokere og frigi minne bruker Rust noe som heter ‘borrow-checking’. Borrow checkeren til Rust passer på at en variabel bare er tilgengelig for riktig eier og at den frigis når den går ut av scope. Dette tvinger deg til å oppgi hvilke funksjoner og scopes som skal ha tilgang til variablene. Rust tvinger deg også til å håndtere alle feiltilfeller som kan oppstå, noe vi vil støte på senere.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;torsdag-5-5-timer-10-30-16-00&quot;&gt;Torsdag - 5.5 timer - 10:30-16:00&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;query-params-i-axum&quot;&gt;Query params i Axum&lt;&#x2F;h2&gt;
+&lt;p&gt;For å implementere filtreringen på tagger er vi nødt til å sende query parametre for å bestemme hvilke filtre som skal være aktive. Jeg begynner dagen med å se på hvordan man håndterer query parametre i Axum og støter ganske raskt på problemer. Jeg prøver nemlig å hente inn en liste med parametre på den følgende formen.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;http:localhost&#x2F;?f=a&amp;amp;f=b
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Dette ønsker jeg så å serialisere som en liste med strenger på backenden på den følgende måten.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub struct &lt;&#x2F;span&gt;&lt;span&gt;Params {
+&lt;&#x2F;span&gt;&lt;span&gt;	#serde(rename=&amp;quot;f&amp;quot;)
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;filter_query&lt;&#x2F;span&gt;&lt;span&gt;: Option&amp;lt;Vec&amp;lt;String&amp;gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I route-handleren vil vi da forvente å kunne extracte disse parametrene med Query-extractoren.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span&gt;async &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;hello_route&lt;&#x2F;span&gt;&lt;span&gt;(
+&lt;&#x2F;span&gt;&lt;span&gt;   Query(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;params&lt;&#x2F;span&gt;&lt;span&gt;): Query&amp;lt;HelloParams&amp;gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt; Response {
+&lt;&#x2F;span&gt;&lt;span&gt;   dbg!(params.filter_query);
+&lt;&#x2F;span&gt;&lt;span&gt;   …
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Dette fungerer ikke som forventet i Axum pakken eller &#x27;craten&#x27; som det heter i Rust. Hvorfor de ikke støtter det direkte vet jeg ikke, men etter litt søking på nettet finner jeg ut at Axum har en ekstra crate kalt ‘axum-extra’ som inneholder en ‘drop-in-replacement’ Query() extractor funksjon som støtter parsing av lister fra query paramentrene. Jeg bytter derfor importen av Query() til ‘axum-extra’ og det fungerer som forventet.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;fredag-4-timer-10-30-14-30&quot;&gt;Fredag - 4 timer - 10:30-14:30&lt;&#x2F;h1&gt;
+&lt;p&gt;Mesteparten av dagen gikk til å implementere CSS styling for filtrerings knappene. For dette tok jeg inspirasjon fra det interne design dokumentet i Figma, men også fra Frende sitt offentlige designsystem &lt;a href=&quot;https:&#x2F;&#x2F;design.frende.no&quot;&gt;Frøya&lt;&#x2F;a&gt;. Dette designsystemet inneholder et komponent-bibliotek for vanlige webkomponenter. Jeg tok derfor inspirasjon fra filter button komponenten for bruk i applikasjonen.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;simsine.no&#x2F;dat156&#x2F;blog&#x2F;34&#x2F;filter_button_grupper.png&quot; alt=&quot;Utdrag av filter button komponenten&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Gjennom dette fikk jeg også testet ut å bruke en CSS stil som baserer seg på bruk av semantisk styling over bruk av klasser. Dette gjør at man kan skrive ren semantisk HTML uten CSS-klasser i dokumentet.
+Jeg fikk også testet ut CSS nesting og nesting selektoren &amp;amp;. Dette er overraskende nok et relativt nytt konsept innen CSS og har bare vært støttet i de fleste nettlesere &lt;a href=&quot;https:&#x2F;&#x2F;caniuse.com&#x2F;css-nesting&quot;&gt;siden sent i 2023&lt;&#x2F;a&gt;. Disse to konseptene passer bra sammen og lar oss skrive korte og konsise CSS dokumenter.&lt;&#x2F;p&gt;
+&lt;p&gt;Her er et eksempel på hvordan CSS nesting ser ut.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;css&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-css &quot;&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;p &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  font-family: system-ui;
+&lt;&#x2F;span&gt;&lt;span&gt;  font-size: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1.2rem&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;amp; &amp;gt; a {
+&lt;&#x2F;span&gt;&lt;span&gt;    color: tomato;
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;amp;:hover,
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;amp;:focus {
+&lt;&#x2F;span&gt;&lt;span&gt;      color: ivory;
+&lt;&#x2F;span&gt;&lt;span&gt;      background-color: tomato;
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="no">
+        <title>Forord</title>
+        <published>2025-05-28T00:00:00+00:00</published>
+        <updated>2025-05-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              simsine
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://simsine.no/dat156/forord/"/>
+        <id>https://simsine.no/dat156/forord/</id>
+        
+        <content type="html" xml:base="https://simsine.no/dat156/forord/">&lt;h2 id=&quot;introduksjon&quot;&gt;Introduksjon&lt;&#x2F;h2&gt;
+&lt;p&gt;Hei og velkommen til denne bloggen som inngår i arbeidet mitt med faget &lt;a href=&quot;https:&#x2F;&#x2F;www.hvl.no&#x2F;studier&#x2F;studieprogram&#x2F;emne&#x2F;dat156&#x2F;&quot;&gt;DAT156 - Praksis i arbeidslivet for data&lt;&#x2F;a&gt; på HVL i Bergen.
+I denne bloggen kommer jeg til å dokumentere arbeidet mitt dag for dag mens jeg jobber i bedriften Frende Forsikring.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;oppsett-av-bloggen&quot;&gt;Oppsett av bloggen&lt;&#x2F;h2&gt;
+&lt;p&gt;Denne bloggen er bygget med &lt;a href=&quot;https:&#x2F;&#x2F;getzola.org&#x2F;&quot;&gt;Zola&lt;&#x2F;a&gt; som er et program som genererer statiske nettsider ut ifra markdown filer.
+Man kan definere oppsettet av siden selv eller bruke et ferdiglaget tema som &lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;themes&#x2F;linkita&#x2F;&quot;&gt;Linkita blogg-temaet&lt;&#x2F;a&gt; som er brukt for å lage denne siden.&lt;&#x2F;p&gt;
+&lt;p&gt;Siden er produksjonsatt med Github actions til Github-Pages som er en enkel måte å servere statiske nettsider på og integreres direkte i repoet på Github.&lt;&#x2F;p&gt;
+&lt;p&gt;Kildekoden for denne bloggen ligger offentlig på min &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;simsine&#x2F;dat156&quot;&gt;Github profil&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
