@@ -9,9 +9,13 @@ use axum_extra::extract::Query;
 use hypertext::prelude::*;
 
 use serde::Deserialize;
+use tower_http::services::ServeDir;
 
 mod errors;
+mod icon;
+
 use crate::errors::{AppError, error_404};
+use crate::icon::SVG;
 
 #[derive(Clone)]
 struct Tag {
@@ -75,11 +79,15 @@ async fn main() {
     let app = Router::new()
         .route("/", get(hello_route))
         .route("/maybe_error", get(error_prone_handler))
+        .route("/svg", get(svg))
+        .nest_service("/static", ServeDir::new("static"))
         .with_state(state)
         .fallback(error_404);
 
     // run our app with hyper, listening globally on port 3000
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    let addr = "0.0.0.0:3000";
+    println!("Starting app on address: http://{addr}");
+    let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
 }
 
@@ -140,4 +148,14 @@ async fn error_prone_handler(
     Ok(maud!(
         h1 {"Everything is a-ok!"}
     ).render().into_response())
+}
+
+async fn svg() -> Response {
+    maud!(
+        html {
+            link rel="stylesheet" href="/static/svg/svg.css";
+        }
+        h1 {"Type safe SVG icons!"}
+        (SVG::BurgerMenu)
+    ).render().into_response()
 }
