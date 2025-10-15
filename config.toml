@@ -92,7 +92,7 @@ bio = "Dataingeniør student ved HVL Bergen"
 social = [
     { name = "home", url = "https://simsine.no" },
     { name = "github", url = "https://github.com/simsine" },
-    { name = "email", url = "mailto:example@example.com" },
+    # { name = "email", url = "mailto:example@example.com" },
     { name = "linkedin", url = "https://www.linkedin.com/in/simen-str%C3%B8msnes-572a03268/" },
     { name = "rss", url = "$BASE_URL/atom.xml" },
 ]
